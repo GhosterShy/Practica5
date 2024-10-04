@@ -82,24 +82,14 @@ class Programm
         IDocument document = null;
 
 
-        switch (type)
-        {
-            case Doctype.Report:
-                creater = new ReportCreator();
-                break;
-
-            case Doctype.Resume:
-                creater = new ReportCreator();
-                break;
-
-            case Doctype.Letter:
-                creater = new LetterCreator();
-                break;
-
-        }
+        creater = switch (type) {
+            case Doctype.Report -> new ReportCreator();
+            case Doctype.Resume -> new ResumeCreator();
+            case Doctype.Letter -> new LetterCreator();
+        };
         document = creater.createDocument();
         return document;
-    };
+    }
 
 }
 
@@ -110,10 +100,9 @@ class Programm
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-
-
-
-
+    Programm programm = new Programm();
+    programm.Getdocument(Doctype.Report).open();
+    programm.Getdocument(Doctype.Resume).open();
 
 
 
